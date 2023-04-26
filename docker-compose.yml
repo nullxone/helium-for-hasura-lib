@@ -5,6 +5,8 @@ services:
     command: sleep infinity
     volumes:
       - ./app:/app
+    environment:
+      - HELIUM_DATABASE_URL=postgres://dbuser:dbpwd@localhost:5432/appdb
     network_mode: host
   database:
     image: postgres:15.2
@@ -25,7 +27,7 @@ services:
     - "database"
     environment:
       ## postgres database to store Hasura metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://dbuser:dbpwd@database:5432/appdb
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
