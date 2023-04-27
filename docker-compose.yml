@@ -8,6 +8,7 @@ services:
       - ./helium-for-hasura:/helium-for-hasura
     environment:
       - HELIUM_DATABASE_URL=postgres://dbuser:dbpwd@localhost:5432/appdb
+      - HASURA_GRAPHQL_ADMIN_SECRET=aFyrZOSGqAj2Eob5lNWz
     network_mode: host
   database:
     image: postgres:15.2
@@ -37,5 +38,5 @@ services:
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
       ## uncomment next line to set an admin secret
-      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
     network_mode: host
