@@ -18,6 +18,7 @@
     "test": "jest"
   },
   "bin": {
-    "helium": "./cli.js"
+    "helium": "./bin/cli.js",
+    "hedeploy": "./bin/deploy.sh"
   }
 }
