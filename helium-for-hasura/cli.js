@@ -5,6 +5,8 @@ const program = new Command();
 
 const package = require("./package.json");
 
+const path = require("path");
+
 program
   .name("Helium for Hasura")
   .description(package.description)
@@ -16,7 +18,10 @@ program
   .option("-s, --source <string>", "Source Directory", "./helium")
   .option("-t, --target <string>", "Target Metadata Directory", "./metadata")
   .action((options) => {
-    console.log(options.source, options.target);
+    require("./metadata").compile(
+      path.join(process.cwd(), options.source),
+      path.join(process.cwd(), options.target)
+    );
   });
 
 program.parse();
