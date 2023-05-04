@@ -40,13 +40,13 @@ services:
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
     network_mode: host
-  auth:
+  devauth:
     build: ./auth
-    command: sleep infinity
+    # command: sleep infinity
+    entrypoint: ["exit", "0"]
     volumes:
       - ./auth:/authapp
     environment:
-      PORT: 8000
       HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
       HASURA_GRAPHQL_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb 
       HASURA_GRAPHQL_GRAPHQL_URL: http://localhost:8080/v1/graphql
@@ -54,6 +54,21 @@ services:
       AUTH_SMTP_PORT: 1025
     env_file:
       - ./auth/.env.example
+    network_mode: host
+  auth:
+    build: ./auth/hasura-auth
+    depends_on:
+      - database
+      - hasura
+    environment:
+      HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key":"5152fa850c02dc222631cca898ed1485821a70912a6e3649c49076912daa3b62182ba013315915d64f40cddfbb8b58eb5bd11ba225336a6af45bbae07ca873f3","issuer":"hasura-auth"}'
+      HASURA_GRAPHQL_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb 
+      HASURA_GRAPHQL_GRAPHQL_URL: http://localhost:8080/v1/graphql
+      AUTH_SMTP_HOST: localhost
+      AUTH_SMTP_PORT: 1025
+    ports:
+      - '4000:4000'
     network_mode: host
   mailhog:
     image: mailhog/mailhog
