@@ -42,8 +42,7 @@ services:
     network_mode: host
   devauth:
     build: ./auth
-    # command: sleep infinity
-    entrypoint: ["exit", "0"]
+    command: sleep infinity
     volumes:
       - ./auth:/authapp
     environment:
