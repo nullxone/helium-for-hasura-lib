@@ -40,3 +40,39 @@ services:
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
     network_mode: host
+  auth:
+    build: ./auth
+    command: sleep infinity
+    volumes:
+      - ./auth:/authapp
+    environment:
+      PORT: 8000
+      HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
+      HASURA_GRAPHQL_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb 
+      HASURA_GRAPHQL_GRAPHQL_URL: http://localhost:8080/v1/graphql
+      AUTH_SMTP_HOST: localhost
+      AUTH_SMTP_PORT: 1025
+    env_file:
+      - ./auth/.env.example
+    network_mode: host
+  mailhog:
+    image: mailhog/mailhog
+    env_file:
+      - ./auth/.env.example
+    environment:
+      SMTP_HOST: localhost
+      SMTP_PORT: 1025
+      SMTP_PASS: password
+      SMTP_USER: user
+      SMTP_SECURE: 'false'
+      SMTP_SENDER: hasura-auth@example.com
+      # SMTP_PASS: ${AUTH_SMTP_PASS}
+      # SMTP_USER: ${AUTH_SMTP_USER}
+      # SMTP_SECURE: '${AUTH_SMTP_SECURE}'
+      # SMTP_SENDER: ${AUTH_SMTP_SENDER}
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    volumes:
+      - ./docker/data/mailhog:/maildir
+    network_mode: host
