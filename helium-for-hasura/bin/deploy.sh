@@ -2,6 +2,6 @@
 
 set -e
 
-hasura metdata apply
+hasura metadata apply
 hasura migrate apply
-hasura metdata apply
+hasura metadata apply
