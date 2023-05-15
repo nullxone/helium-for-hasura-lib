@@ -5,6 +5,8 @@ const fs = require("fs-extra");
 
 class Metadata {
   static compile(heliumDir, metadataDir) {
+    fs.emptyDirSync(metadataDir);
+
     if (fs.existsSync(path.join(heliumDir, "modules"))) {
       fs.readdirSync(path.join(heliumDir, "modules")).forEach((module) => {
         if (fs.existsSync(path.join(heliumDir, "modules", module, "metadata")))

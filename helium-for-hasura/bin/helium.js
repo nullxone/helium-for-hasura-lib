@@ -2,6 +2,7 @@
 
 const path = require("path");
 const fs = require("fs-extra");
+const process = require("process");
 
 const { Command } = require("commander");
 const program = new Command();
@@ -33,13 +34,20 @@ program
   .command("module")
   .description("Import a module, currently only hasura-auth")
   .command("import")
-  .command("hasura-auth")
+  .argument("<module>", "Name of the module to import")
   .option("-s, --source <string>", "Source Helium Directory", "./helium")
   .description("Import Hasura Auth module to your project")
-  .action((options) => {
+  .action((module, options) => {
+    const modulePath = path.join(__dirname, "../modules", module);
+
+    if (!fs.existsSync(modulePath)) {
+      console.log(`Module ${module} does not exist`);
+      process.exit(1);
+    }
+
     fs.copySync(
-      path.join(__dirname, "../modules/hasura-auth"),
-      path.join(process.cwd(), options.source, "modules/hasura-auth")
+      modulePath,
+      path.join(process.cwd(), options.source, "modules", module)
     );
   });
 
