@@ -8,12 +8,8 @@ function dc() {
 
 dc down -vt 1
 
-dc up -d database
+dc up -d database hasura app
 sleep 1
-
-dc up -d hasura
-
-dc up -d app
 
 dc exec app /app/bin/install-dev.sh
 dc exec app yarn helium compile
