@@ -24,4 +24,16 @@ program
     );
   });
 
+program
+  .command("deploy")
+  .description("Deploy compiled metadata to Hasura")
+  .action((options) => {});
+
+program
+  .command("module")
+  .command("import")
+  .command("hasura-auth")
+  .description("Add Hasura Auth module to your project")
+  .action((options) => {});
+
 program.parse();
