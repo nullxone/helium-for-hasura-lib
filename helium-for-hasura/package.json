@@ -1,7 +1,7 @@
 {
   "name": "helium-for-hasura",
   "version": "0.1.0",
-  "description": "Hasura Starter Kit",
+  "description": "Helium for Hasura DSL Kit",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -18,7 +18,6 @@
     "test": "jest"
   },
   "bin": {
-    "helium": "./bin/cli.js",
-    "hedeploy": "./bin/deploy.sh"
+    "helium": "./bin/helium.js"
   }
 }

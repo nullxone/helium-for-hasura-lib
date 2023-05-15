@@ -148,9 +148,3 @@ exports[`complex predicate 1`] = `
   ],
 }
 `;
-
-exports[`write all tables file 1`] = `
-"- '!include public_tasks.yaml'
-- '!include public_users.yaml'
-"
-`;

@@ -13,7 +13,7 @@ sleep 1
 
 dc exec app /app/bin/install-dev.sh
 dc exec app yarn helium compile
-dc exec app yarn hedeploy
+dc exec app yarn helium deploy
 
 dc up -d auth
 

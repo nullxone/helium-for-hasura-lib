@@ -38,26 +38,6 @@ test("belongs to relationship, has many relationship", () => {
   expect(fs.readFileSync(outFile, "utf8")).toMatchSnapshot();
 });
 
-test("write all tables file", () => {
-  const appDir = path.join(__dirname, "./AppSimple");
-  const metadataDir = path.join(appDir, "metadata");
-  fs.emptyDirSync(metadataDir);
-
-  Model.compile(require(path.join(appDir, "helium/models/Users")), metadataDir);
-
-  Model.compile(require(path.join(appDir, "helium/models/Tasks")), metadataDir);
-
-  Model.writeAllTables(metadataDir);
-
-  const outFile = path.join(
-    metadataDir,
-    "databases/default/tables/tables.yaml"
-  );
-
-  expect(fs.existsSync(outFile)).toBe(true);
-  expect(fs.readFileSync(outFile, "utf8")).toMatchSnapshot();
-});
-
 test("eq operator", () => {
   expect(eq("email", "foo")).toStrictEqual({ email: { _eq: "foo" } });
   expect(eq("user.profile.name", "foo")).toStrictEqual({

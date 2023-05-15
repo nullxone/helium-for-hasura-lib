@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const ejs = require("ejs");
 const path = require("path");
+const yaml = require("js-yaml");
 
 class Database {
   static compile(klass, metadataDir) {
@@ -13,6 +14,22 @@ class Database {
 
   static outputFile(metadataDir) {
     return path.join(metadataDir, "databases/databases.yaml");
+  }
+
+  static writeAllTables(metadataDir) {
+    fs.outputFileSync(
+      this.outputAllTablesFile(metadataDir),
+      yaml.dump(
+        fs
+          .readdirSync(path.join(metadataDir, "databases/default/tables"))
+          .filter((file) => file !== "tables.yaml")
+          .map((file) => `!include ${file}`)
+      )
+    );
+  }
+
+  static outputAllTablesFile(metadataDir) {
+    return path.join(metadataDir, "databases/default/tables/tables.yaml");
   }
 }
 

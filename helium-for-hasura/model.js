@@ -118,18 +118,6 @@ class Model {
     return metadata;
   }
 
-  static writeAllTables(metadataDir) {
-    fs.outputFileSync(
-      this.outputAllTablesFile(metadataDir),
-      yaml.dump(
-        fs
-          .readdirSync(path.join(metadataDir, "databases/default/tables"))
-          .filter((file) => file !== "tables.yaml")
-          .map((file) => `!include ${file}`)
-      )
-    );
-  }
-
   static primaryKey(klass) {
     return "id";
   }
@@ -140,10 +128,6 @@ class Model {
 
   static outputDir(metadataDir) {
     return path.join(metadataDir, "databases/default/tables");
-  }
-
-  static outputAllTablesFile(metadataDir) {
-    return path.join(metadataDir, "databases/default/tables/tables.yaml");
   }
 }
 

@@ -11,3 +11,9 @@ exports[`database config to database metadata 1`] = `
   tables: "!include default/tables/tables.yaml"
 "
 `;
+
+exports[`write all tables file 1`] = `
+"- '!include public_tasks.yaml'
+- '!include public_users.yaml'
+"
+`;
