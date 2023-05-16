@@ -32,8 +32,9 @@ program.command("deploy", "Deploy compiled metadata to Hasura", {
 
 program
   .command("module")
-  .description("Import a module, currently only hasura-auth")
+  .description("Manage metadata modules")
   .command("import")
+  .description("Import modules")
   .argument("<module>", "Name of the module to import")
   .option("-s, --source <string>", "Source Helium Directory", "./helium")
   .description("Import Hasura Auth module to your project")
