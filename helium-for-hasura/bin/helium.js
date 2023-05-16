@@ -11,7 +11,7 @@ const package = require("../package.json");
 
 program
   .name("helium")
-  .description(package.description)
+  .description("Helium for Hasura Starter Kit")
   .version(package.version);
 
 program

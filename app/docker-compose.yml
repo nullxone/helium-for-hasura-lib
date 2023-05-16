@@ -1,11 +1,10 @@
 version: '3.8'
 services:
   app:
-    build: ./app
+    build: .
     command: sleep infinity
     volumes:
-      - ./app:/app
-    #  - ./helium-for-hasura:/helium-for-hasura
+      - .:/app
     environment:
       HELIUM_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb
       HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
@@ -44,22 +43,8 @@ services:
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key":"5152fa850c02dc222631cca898ed1485821a70912a6e3649c49076912daa3b62182ba013315915d64f40cddfbb8b58eb5bd11ba225336a6af45bbae07ca873f3","issuer":"hasura-auth"}'
     restart: unless-stopped
     network_mode: host
-  devauth:
-    build: ./auth
-    command: sleep infinity
-    volumes:
-      - ./auth:/authapp
-    environment:
-      HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
-      HASURA_GRAPHQL_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb 
-      HASURA_GRAPHQL_GRAPHQL_URL: http://localhost:8080/v1/graphql
-      AUTH_SMTP_HOST: localhost
-      AUTH_SMTP_PORT: 1025
-    env_file:
-      - ./auth/.env.example
-    network_mode: host
   auth:
-    build: ./auth/hasura-auth
+    image: akshaya01/hasura-auth-authuser-mod:0.19.2
     depends_on:
       - database
       - hasura
@@ -83,8 +68,6 @@ services:
     network_mode: host
   mailhog:
     image: mailhog/mailhog
-    # env_file:
-    #   - ./auth/.env.example
     environment:
       SMTP_HOST: localhost
       SMTP_PORT: 1025
@@ -100,8 +83,9 @@ services:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
     volumes:
-      - ./docker/data/mailhog:/maildir
+      - mailhog-data:/maildir
     network_mode: host
 
 volumes:
   database-data:
+  mailhog-data:

@@ -1,7 +1,8 @@
 {
   "name": "helium-for-hasura",
   "version": "0.1.0",
-  "description": "Helium for Hasura DSL Kit",
+  "description": "Library for Helium for Hasura Starter Kit",
+  "author": "nullxone <akshaya.acharya@hasura.io> (www.heliumforhasura.com)",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
