@@ -5,6 +5,7 @@ const fs = require("fs-extra");
 
 class Metadata {
   static compile(heliumDir, metadataDir) {
+    this.ensureDirectoryStructure(heliumDir, metadataDir);
     fs.emptyDirSync(metadataDir);
 
     if (fs.existsSync(path.join(heliumDir, "modules"))) {
@@ -25,8 +26,14 @@ class Metadata {
     Database.writeAllTables(metadataDir);
 
     const databaseFile = path.join(heliumDir, "Database");
-    //if (fs.existsSync(databaseFile))
+    // if (fs.existsSync(databaseFile))
     Database.compile(require(databaseFile), metadataDir);
+  }
+
+  static ensureDirectoryStructure(heliumDir, metadataDir) {
+    ["models", "modules", "seeds", "test"].forEach((dir) => {
+      fs.ensureDirSync(path.join(heliumDir, dir));
+    });
   }
 }
 

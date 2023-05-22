@@ -17,6 +17,7 @@ class Database {
   }
 
   static writeAllTables(metadataDir) {
+    fs.ensureDirSync(path.join(metadataDir, "databases/default/tables"));
     fs.outputFileSync(
       this.outputAllTablesFile(metadataDir),
       yaml.dump(

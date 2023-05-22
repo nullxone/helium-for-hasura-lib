@@ -5,7 +5,7 @@ services:
     command: sleep infinity
     volumes:
       - ./app:/app
-    #  - ./helium-for-hasura:/helium-for-hasura
+      - ./helium-for-hasura:/helium-for-hasura
     environment:
       HELIUM_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb
       HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
@@ -44,20 +44,20 @@ services:
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key":"5152fa850c02dc222631cca898ed1485821a70912a6e3649c49076912daa3b62182ba013315915d64f40cddfbb8b58eb5bd11ba225336a6af45bbae07ca873f3","issuer":"hasura-auth"}'
     restart: unless-stopped
     network_mode: host
-  devauth:
-    build: ./auth
-    command: sleep infinity
-    volumes:
-      - ./auth:/authapp
-    environment:
-      HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
-      HASURA_GRAPHQL_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb 
-      HASURA_GRAPHQL_GRAPHQL_URL: http://localhost:8080/v1/graphql
-      AUTH_SMTP_HOST: localhost
-      AUTH_SMTP_PORT: 1025
-    env_file:
-      - ./auth/.env.example
-    network_mode: host
+  # devauth:
+  #   build: ./auth
+  #   command: sleep infinity
+  #   volumes:
+  #     - ./auth:/authapp
+  #   environment:
+  #     HASURA_GRAPHQL_ADMIN_SECRET: aFyrZOSGqAj2Eob5lNWz
+  #     HASURA_GRAPHQL_DATABASE_URL: postgres://dbuser:dbpwd@localhost:5432/appdb 
+  #     HASURA_GRAPHQL_GRAPHQL_URL: http://localhost:8080/v1/graphql
+  #     AUTH_SMTP_HOST: localhost
+  #     AUTH_SMTP_PORT: 1025
+  #   env_file:
+  #     - ./auth/.env.example
+  #   network_mode: host
   auth:
     build: ./auth/hasura-auth
     depends_on:
