@@ -100,8 +100,9 @@ services:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
     volumes:
-      - ./docker/data/mailhog:/maildir
+      - mailhog-data:/maildir
     network_mode: host
 
 volumes:
   database-data:
+  mailhog-data:
