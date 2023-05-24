@@ -1,3 +1,6 @@
 [submodule "app"]
 	path = app
 	url = git@github.com:nullxone/helium-for-hasura-starter-kit.git
+[submodule "auth/hasura-auth"]
+	path = auth/hasura-auth
+	url = git@github.com:nullxone/hasura-auth.git
