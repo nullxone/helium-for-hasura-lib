@@ -4,3 +4,9 @@
 [submodule "auth/hasura-auth"]
 	path = auth/hasura-auth
 	url = git@github.com:nullxone/hasura-auth.git
+[submodule "examples/TodoAppBasic"]
+	path = examples/TodoAppBasic
+	url = git@github.com:nullxone/helium-for-hasura-starter-kit.git
+[submodule "examples/TodoAppSharing"]
+	path = examples/TodoAppSharing
+	url = git@github.com:nullxone/helium-for-hasura-starter-kit.git
